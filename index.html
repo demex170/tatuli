@@ -109,7 +109,7 @@ button { padding:12px 26px; border-radius:30px; border:none; font-size:16px; mar
 <!-- FINAL -->
 <div id="final" class="final hidden">
     <div class="couple">👦 <strong>❤️✨❤️</strong> 👧</div>
-    <div class="final-text">გილოცავ ვალენტინობას, თათული 💖</div>
+    <div class="final-text">ვალენტინობას გილოცავ💖</div>
 </div>
 
 </div>
@@ -117,15 +117,15 @@ button { padding:12px 26px; border-radius:30px; border:none; font-size:16px; mar
 
 <script>
 const messages = [
- "გამარჯობა სიყვარულო ❤️",
- "თათული, დღეს მთელი დღე შენზე ვფიქრობდი",
- "შენ ჩემთვის ყველაზე ძვირფასი ადამიანი ხარ. ",
+ "გამარჯობა სიყვარულო❤️",
+ "თათული,დღეს მთელი დღე შენზე ვფიქრობდი",
+ "შენ ჩემთვის ყველაზე ძვირფასი ადამიანი ხარ, სიყვარულო",
  "და მინდა გულწრფელად გკითხო 🥺"
 ];
 const questions = [
  "იქნება ჩემი ვალენტინი? 💘",
  "მართლა? ბოლომდე? 🥺",
- "დარწმუნებული ხარ?  ❤️",
+ "დარწმუნებული ხარ? ❤️",
  "მაშინ საბოლოოდ… კი? 💖"
 ];
 
@@ -154,7 +154,7 @@ function sendNext(){
  } else { ask(); }
 }
 
-// ყველა მესიჯის ადრესანტი ლუკა
+// მესიჯის ადრესანტი ლუკა
 function sendMessage(text){
  const bubble=document.createElement("div");
  bubble.className="bubble from-d";
@@ -180,9 +180,27 @@ function ask(){
 }
 
 function no(){
- q++;
- document.querySelector(".yes").style.transform="scale(1.2)";
- if(q<questions.length) ask();
+    const yesBtn = document.querySelector(".yes");
+    const noBtn = document.querySelector(".no");
+
+    // „კი“ გაზრდა
+    yesBtn.style.transform = "scale(1.4)";
+    yesBtn.style.transition = "transform 0.3s";
+
+    // „არა“ გაიქცეს შემთხვევით მდებარეობაზე
+    const chatWidth = chat.clientWidth - noBtn.offsetWidth;
+    const chatHeight = chat.clientHeight - noBtn.offsetHeight;
+    const randomX = Math.floor(Math.random() * chatWidth);
+    const randomY = Math.floor(Math.random() * chatHeight);
+    
+    noBtn.style.position = "absolute";
+    noBtn.style.left = randomX + "px";
+    noBtn.style.top = randomY + "px";
+    noBtn.style.transition = "all 0.3s";
+
+    // შემდეგ შეკითხვა განაახლე
+    q++;
+    if(q<questions.length) ask();
 }
 
 function yes(){
